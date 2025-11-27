@@ -1,9 +1,407 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人主页 | Computer Science Researcher</title>
+    <!-- 引入 FontAwesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- 全局变量与重置 --- */
+        :root {
+            --bg-color: #1e1e24;
+            --card-bg: #2b2b36;
+            --text-color: #e2e2e2;
+            --text-secondary: #a0a0a0;
+            --accent-color: #00adb5; /* 科技蓝 */
+            --hover-color: #00fff5;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- 导航栏 --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(30, 30, 36, 0.95);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .nav-links a {
+            margin-left: 2rem;
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+
+        .nav-links a:hover { color: var(--accent-color); }
+
+        /* --- Hero 区域 (首屏) --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .typewriter {
+            border-right: 2px solid var(--accent-color);
+            white-space: nowrap;
+            overflow: hidden;
+            animation: blink 0.75s step-end infinite;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            border: 2px solid var(--accent-color);
+            border-radius: 5px;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: var(--accent-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 15px var(--accent-color);
+        }
+
+        /* --- 通用 Section 样式 --- */
+        section {
+            padding: 80px 10%;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* --- 关于我 & 技能 --- */
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .info-card h3 { color: var(--accent-color); margin-bottom: 15px; }
+        
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .skill-tag {
+            background: var(--card-bg);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid #444;
+        }
+
+        /* --- 论文发表 (Publications) --- */
+        .paper-item {
+            background: var(--card-bg);
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border-left: 5px solid var(--accent-color);
+            transition: transform 0.3s ease;
+        }
+
+        .paper-item:hover {
+            transform: translateX(10px);
+        }
+
+        .paper-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .paper-meta {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .paper-links a {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-right: 15px;
+        }
+        
+        .paper-links a:hover { text-decoration: underline; }
+
+        /* --- 联系方式 --- */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .contact-card:hover {
+            background: #333340;
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #15151a;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* --- 动画 Keyframes --- */
+        @keyframes blink { 50% { border-color: transparent; } }
+
+        /* --- 移动端适配 --- */
+        @media (max-width: 768px) {
+            .about-container { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } /* 简化处理，移动端隐藏导航 */
+        }
+    </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p> GitHub Pages:https://github.com/nononeundertsand</p>
-<p> E-mail:2020201513@hrbeu.edu.cn or 1821986277@qq.com</p>
+
+    <!-- 导航栏 -->
+    <nav>
+        <div class="logo">&lt;Developer /&gt;</div>
+        <div class="nav-links">
+            <a href="#home">首页</a>
+            <a href="#about">关于我</a>
+            <a href="#publications">发表论文</a>
+            <a href="#contact">联系方式</a>
+        </div>
+    </nav>
+
+    <!-- 首页 Hero -->
+    <section id="home" class="hero">
+        <h1>Hello, I'm <span style="color:var(--accent-color)">Your Name</span></h1>
+        <p>哈尔滨工程大学 | 计算机科学与技术</p>
+        <p class="typewriter" id="typewriter-text">Researching in AI & Distributed Systems...</p>
+        
+        <div class="btn-group" style="margin-top: 30px;">
+            <a href="https://github.com/nononeundertsand" target="_blank" class="btn">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="#contact" class="btn">
+                <i class="fas fa-envelope"></i> 联系我
+            </a>
+        </div>
+    </section>
+
+    <!-- 关于我 -->
+    <section id="about">
+        <h2 class="section-title">关于我 (About Me)</h2>
+        <div class="about-container">
+            <div class="info-card">
+                <h3><i class="fas fa-user-graduate"></i> 个人简介</h3>
+                <p>
+                    我是一名来自哈尔滨工程大学（HEU）的计算机专业学生/研究员。
+                    热衷于探索计算机系统的底层原理以及人工智能的前沿应用。
+                    致力于编写优雅的代码和解决复杂的工程问题。
+                </p>
+                <br>
+                <p>
+                    目前主要关注领域包括：<b>深度学习、分布式系统、网络安全</b>。
+                </p>
+            </div>
+            
+            <div class="info-card">
+                <h3><i class="fas fa-code"></i> 技术栈</h3>
+                <div class="skills-grid">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">C/C++</span>
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">PyTorch</span>
+                    <span class="skill-tag">Linux</span>
+                    <span class="skill-tag">Docker</span>
+                    <span class="skill-tag">Git</span>
+                    <span class="skill-tag">LaTeX</span>
+                    <span class="skill-tag">SQL</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 发表论文 -->
+    <section id="publications">
+        <h2 class="section-title">发表论文 (Publications)</h2>
+        
+        <!-- 论文 1 -->
+        <div class="paper-item">
+            <div class="paper-title">在此处填写你的论文标题 (Example Title of Your Paper)</div>
+            <div class="paper-meta">
+                <span><i class="far fa-calendar-alt"></i> 2024</span> | 
+                <span><i class="fas fa-book"></i> Conference/Journal Name</span>
+            </div>
+            <p style="color: #bbb; font-size: 0.95rem; margin-bottom: 10px;">
+                Authors: <b>Your Name</b>, Co-author Name, Supervisor Name
+            </p>
+            <div class="paper-links">
+                <a href="#"><i class="fas fa-file-pdf"></i> PDF</a>
+                <a href="#"><i class="fas fa-link"></i> DOI</a>
+                <a href="#"><i class="fab fa-github"></i> Code</a>
+            </div>
+        </div>
+
+        <!-- 论文 2 (示例) -->
+        <div class="paper-item">
+            <div class="paper-title">基于深度学习的图像识别算法研究 (Example Paper Title)</div>
+            <div class="paper-meta">
+                <span><i class="far fa-calendar-alt"></i> 2023</span> | 
+                <span><i class="fas fa-book"></i> IEEE Transactions on XXX</span>
+            </div>
+            <p style="color: #bbb; font-size: 0.95rem; margin-bottom: 10px;">
+                Authors: Co-author, <b>Your Name</b>
+            </p>
+            <div class="paper-links">
+                <a href="#"><i class="fas fa-file-pdf"></i> PDF</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式 -->
+    <section id="contact">
+        <h2 class="section-title">联系方式 (Contact)</h2>
+        <div class="contact-grid">
+            
+            <div class="contact-card">
+                <div class="contact-icon"><i class="fas fa-university"></i></div>
+                <h4>学校邮箱</h4>
+                <p>2020201513@hrbeu.edu.cn</p>
+                <a href="mailto:2020201513@hrbeu.edu.cn" style="color:var(--accent-color); font-size:0.8rem; margin-top:10px; display:inline-block;">发送邮件 &rarr;</a>
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-icon"><i class="fab fa-qq"></i></div>
+                <h4>QQ / 个人邮箱</h4>
+                <p>1821986277@qq.com</p>
+                <a href="mailto:1821986277@qq.com" style="color:var(--accent-color); font-size:0.8rem; margin-top:10px; display:inline-block;">发送邮件 &rarr;</a>
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-icon"><i class="fab fa-github"></i></div>
+                <h4>GitHub</h4>
+                <p>@nononeundertsand</p>
+                <a href="https://github.com/nononeundertsand" target="_blank" style="color:var(--accent-color); font-size:0.8rem; margin-top:10px; display:inline-block;">访问主页 &rarr;</a>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Your Name. Built with Code & Coffee.</p>
+    </footer>
+
+    <script>
+        // 简单的打字机效果脚本
+        const textElement = document.getElementById('typewriter-text');
+        const texts = [
+            "Computer Science Student", 
+            "Software Developer", 
+            "Open Source Enthusiast"
+        ];
+        let count = 0;
+        let index = 0;
+        let currentText = "";
+        let letter = "";
+
+        (function type() {
+            if (count === texts.length) {
+                count = 0;
+            }
+            currentText = texts[count];
+            letter = currentText.slice(0, ++index);
+            
+            textElement.textContent = letter;
+            
+            if (letter.length === currentText.length) {
+                count++;
+                index = 0;
+                setTimeout(type, 2000); // 停顿2秒
+            } else {
+                setTimeout(type, 100); // 打字速度
+            }
+        })();
+    </script>
 </body>
 </html>
-
