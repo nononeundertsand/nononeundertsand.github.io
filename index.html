@@ -55,7 +55,7 @@
                     致力于编写优雅的代码和解决复杂的工程问题。
                 </p>
                 <br>
-                <p>目前主要关注领域包括：<b>深度学习、联邦学习、边缘智能</b>。</p>
+                <p>目前主要关注领域包括：<b>深度学习、联邦学习、边缘智能、大语言模型、智能体开发</b>。</p>
             </div>
             <div class="info-card">
                 <h3><i class="fas fa-code"></i> 技术栈</h3>
@@ -86,7 +86,7 @@
                 <span><i class="fas fa-tag"></i>  CCF推荐B类会议</span>
             </div>
             <p class="paper-authors">
-                Authors: <b>Xiaowei Liu</b>, Mingxuan Zhang, Prof. Weizhe Zhang (Supervisor)
+                Authors: <b>Xiaowei Liu</b>, Hui Wang, Huan Zhou, zhenyu zhang, Peng Sun, Qi Gao, Tingting Wu, Zhiwen Yu.
             </p>
             
             <!-- 摘要与贡献（更详细的介绍） -->
@@ -99,8 +99,9 @@
                 <ul class="detail-list">
                     <li><strong>新颖的后训练优化范式</strong>：区别于传统联邦训练过程中的数据增强策略，FedPDR在聚合后采用扩散生成模型对全局模型进行蒸馏式优化，无需用户端额外计算。</li>
                     <li><strong>隐私保护特性增强</strong>：基于潜在扩散的生成器只依赖全局模型参数，不泄露任何客户端原始数据或梯度信息，可抵御常见成员推理攻击。</li>
-                    <li><strong>SOTA性能提升</strong>：在CIFAR-10/100、Fashion-MNIST等多个基准上，面对极端Non-IID划分(α=0.1)，FedPDR相较FedAvg、FedProx及SCAFFOLD平均提升≥5.2%的准确率，同时通信轮次减少约30%。</li>
+                    <li><strong>SOTA性能提升</strong>：在CIFAR-10、Fashion-MNIST、HAR等多个基准上，面对极端Non-IID划分，FedPDR相较FedAvg、FedProx及SCAFFOLD平均提升≥5.2%的准确率，同时通信轮次减少约30%。</li>
                     <li><strong>轻量化开销</strong>：生成模型仅部署于服务器端，对客户端透明高效，适用于移动边缘计算场景。</li>
+                    <li><strong>真实场景实验</strong>：在使用树莓派与NVIDIA Jetson Nano等设备搭建的联邦学习训练系统上进行了实验验证。</li>
                 </ul>
                 <span class="detail-label">🔗 论文信息链接 (Paper Links):</span>
                 <p class="paper-note">
@@ -114,12 +115,12 @@
                 <a href="https://arxiv.org/abs/2409.12345" target="_blank" id="paper1-pdf-link">
                     <i class="fas fa-file-pdf"></i> 阅读全文 (PDF)
                 </a>
-                <a href="https://github.com/nononeundertsand/FedPDR" target="_blank">
+                <a href="https://github.com/nononeundertsand/CFD" target="_blank">
                     <i class="fab fa-github"></i> 项目代码 (Official)
                 </a>
-                <a href="https://dl.acm.org/doi/example" target="_blank">
+                <!-- <a href="https://dl.acm.org/doi/example" target="_blank">
                     <i class="fas fa-quote-right"></i> Cite
-                </a>
+                </a> -->
             </div>
         </div>
 
