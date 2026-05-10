@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -6,318 +6,7 @@
     <title>Xiaowei Liu | AI Researcher</title>
     <!-- 引入 FontAwesome 图标库 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* --- 全局变量 --- */
-        :root {
-            --bg-color: #1e1e24;
-            --card-bg: #2b2b36;
-            --card-hover: #323240;
-            --text-color: #e2e2e2;
-            --text-secondary: #a0a0a0;
-            --accent-color: #00adb5; /* 科技蓝 */
-            --accent-glow: rgba(0, 173, 181, 0.4);
-            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: var(--font-main);
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            overflow-x: hidden; /* 防止水平滚动 */
-        }
-
-        /* --- 背景 Canvas 特效 --- */
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; /* 置于底层 */
-            background: radial-gradient(circle at center, #25252d 0%, #1e1e24 100%);
-        }
-
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
-        ul { list-style: none; }
-
-        /* --- 导航栏 --- */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(30, 30, 36, 0.9);
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent-color); }
-        .nav-links a { margin-left: 1.5rem; font-size: 0.95rem; color: var(--text-color); position: relative;}
-        .nav-links a:hover { color: var(--accent-color); }
-        .nav-links a::after {
-            content: ''; position: absolute; width: 0; height: 2px;
-            bottom: -5px; left: 0; background-color: var(--accent-color); transition: 0.3s;
-        }
-        .nav-links a:hover::after { width: 100%; }
-
-        /* --- Hero 区域 --- */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-            position: relative;
-        }
-
-        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; text-shadow: 0 0 20px var(--accent-glow); }
-        .hero p { font-size: 1.5rem; color: var(--text-secondary); margin-bottom: 2rem; }
-        
-        .typewriter {
-            border-right: 2px solid var(--accent-color);
-            white-space: nowrap;
-            overflow: hidden;
-            animation: blink 0.75s step-end infinite;
-            font-family: 'Courier New', monospace;
-        }
-
-        .btn {
-            padding: 10px 25px;
-            border: 2px solid var(--accent-color);
-            border-radius: 5px;
-            color: var(--accent-color);
-            font-weight: bold;
-            margin: 0 10px;
-            background: rgba(0, 173, 181, 0.1);
-        }
-
-        .btn:hover {
-            background: var(--accent-color);
-            color: var(--bg-color);
-            box-shadow: 0 0 20px var(--accent-glow);
-            cursor: pointer;
-        }
-
-        /* --- 通用 Section --- */
-        section { padding: 80px 10%; }
-        .section-title {
-            font-size: 2.2rem;
-            margin-bottom: 3.5rem;
-            text-align: center;
-            position: relative;
-        }
-        .section-title::after {
-            content: ''; display: block; width: 60px; height: 4px;
-            background: var(--accent-color); margin: 15px auto 0; border-radius: 2px;
-        }
-
-        /* --- 关于我 & 技能 --- */
-        .about-container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
-        .info-card h3 { color: var(--accent-color); margin-bottom: 15px; }
-        .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
-        .skill-tag {
-            background: #393945; padding: 5px 15px; border-radius: 20px;
-            font-size: 0.9rem; border: 1px solid #555; transition: 0.3s;
-        }
-        .skill-tag:hover { border-color: var(--accent-color); color: var(--accent-color); }
-
-        /* --- 论文部分 (增强版) --- */
-        .paper-item {
-            background: var(--card-bg);
-            padding: 30px;
-            margin-bottom: 25px;
-            border-radius: 10px;
-            border-left: 5px solid var(--accent-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .paper-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            background: var(--card-hover);
-        }
-
-        .paper-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 10px; color: #fff; }
-        .paper-meta { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 15px; }
-        
-        /* 会议标签特殊样式 */
-        .conference-badge {
-            display: inline-block;
-            background: #00adb522;
-            border: 1px solid var(--accent-color);
-            border-radius: 30px;
-            padding: 3px 12px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--accent-color);
-            margin-left: 8px;
-            vertical-align: middle;
-        }
-
-        /* 论文细节区域 */
-        .paper-details {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 15px;
-            border-radius: 5px;
-            margin: 15px 0;
-            font-size: 0.95rem;
-        }
-        
-        .detail-label {
-            font-weight: bold;
-            color: var(--accent-color);
-            display: block;
-            margin-bottom: 5px;
-            margin-top: 10px;
-        }
-        .detail-label:first-child { margin-top: 0; }
-
-        .paper-links a {
-            display: inline-block;
-            margin-top: 10px;
-            margin-right: 15px;
-            color: var(--accent-color);
-            border: 1px solid var(--accent-color);
-            padding: 5px 15px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            transition: all 0.2s ease;
-        }
-        .paper-links a:hover { background: var(--accent-color); color: var(--bg-color); }
-
-        /* --- 实习经历 (Timeline) --- */
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 2px;
-            background: #444;
-            top: 0;
-            bottom: 0;
-            left: 20px; /* 线条位置 */
-            margin-left: -1px;
-        }
-
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            background-color: inherit;
-            width: 100%;
-        }
-
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            left: 12px;
-            background-color: var(--bg-color);
-            border: 4px solid var(--accent-color);
-            top: 25px;
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        .timeline-content {
-            padding: 20px;
-            background: var(--card-bg);
-            border-radius: 6px;
-            transition: 0.3s;
-        }
-        
-        .timeline-content:hover { background: var(--card-hover); transform: translateX(5px); }
-
-        .time-badge {
-            display: inline-block;
-            background: var(--accent-color);
-            color: var(--bg-color);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .role-title { font-size: 1.1rem; font-weight: bold; color: #fff; }
-        .company-name { font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 10px; }
-        .job-desc { font-size: 0.9rem; color: #ccc; }
-
-        /* --- 项目经历 (Grid) --- */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .project-card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: 0.3s;
-            border: 1px solid #333;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-color);
-            box-shadow: 0 10px 20px rgba(0, 173, 181, 0.1);
-        }
-
-        .project-content { padding: 25px; }
-        .project-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: #fff; }
-        .project-desc { font-size: 0.9rem; color: #bbb; margin-bottom: 15px; min-height: 60px; }
-        .tech-stack {
-            font-size: 0.8rem;
-            color: var(--accent-color);
-            margin-bottom: 15px;
-        }
-
-        /* --- 联系方式 --- */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            text-align: center;
-        }
-
-        .contact-card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 10px;
-            transition: 0.3s;
-        }
-        .contact-card:hover { background: var(--card-hover); transform: translateY(-5px); }
-        .contact-icon { font-size: 2rem; color: var(--accent-color); margin-bottom: 15px; }
-
-        footer { text-align: center; padding: 30px; background: #15151a; color: #666; font-size: 0.9rem; }
-
-        @keyframes blink { 50% { border-color: transparent; } }
-
-        @media (max-width: 768px) {
-            .about-container { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 2.5rem; }
-            .nav-links { display: none; } /* 移动端可后续扩展汉堡菜单 */
-            .timeline::after { left: 20px; }
-            .timeline-item { padding-left: 50px; padding-right: 10px; }
-            .timeline-item::after { left: 12px; }
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
 
@@ -333,17 +22,18 @@
             <a href="#publications">发表论文</a>
             <a href="#experience">实习经历</a>
             <a href="#projects">项目经历</a>
+            <a href="blog/">Blog</a>
             <a href="#contact">联系方式</a>
         </div>
     </nav>
 
     <!-- 首页 Hero -->
     <section id="home" class="hero">
-        <h1>Hello, I'm <span style="color:var(--accent-color)">Xiaowei Liu</span></h1>
+        <h1>Hello, I'm <span class="accent-text">Xiaowei Liu</span></h1>
         <p>哈尔滨工程大学 | 计算机科学与技术</p>
         <p class="typewriter" id="typewriter-text">Researching in AI & Distributed Systems...</p>
         
-        <div class="btn-group" style="margin-top: 30px;">
+        <div class="btn-group">
             <a href="https://github.com/nononeundertsand" target="_blank" class="btn">
                 <i class="fab fa-github"></i> GitHub
             </a>
@@ -398,7 +88,7 @@
                 <span><i class="fas fa-globe"></i> IEEE/ACM International Symposium on Quality of Service (IWQoS)</span> |
                 <span><i class="fas fa-tag"></i>  CCF推荐B类会议</span>
             </div>
-            <p style="color: #bbb; font-size: 0.95rem; margin-bottom: 10px;">
+            <p class="paper-authors">
                 Authors: <b>Xiaowei Liu</b>, Mingxuan Zhang, Prof. Weizhe Zhang (Supervisor)
             </p>
             
@@ -409,14 +99,14 @@
                     联邦学习在保护数据隐私方面展现出巨大潜力，但Non-IID（非独立同分布）数据分布往往导致全局模型收敛缓慢、性能严重下降。现有方法通常需要共享部分原始数据或修改本地训练流程，存在隐私泄露风险或通信开销过高的问题。本文创新性地提出了FedPDR框架，首次将潜在扩散模型（Latent Diffusion Models, LDM）引入后训练优化环节。仅利用云端共享的全局模型生成多样化、高保真的潜在特征，在完全不接触原始用户数据的前提下对全局模型进行校准与增强。该方法既维护了严格的差分隐私预算，又可灵活集成到任意联邦聚合协议中，显著提升模型在异质数据上的泛化能力。
                 </p>
                 <span class="detail-label">✨ 主要工作与创新点 (Main Contributions):</span>
-                <ul style="list-style-type: disc; padding-left: 20px; color: #ccc;">
+                <ul class="detail-list">
                     <li><strong>新颖的后训练优化范式</strong>：区别于传统联邦训练过程中的数据增强策略，FedPDR在聚合后采用扩散生成模型对全局模型进行蒸馏式优化，无需用户端额外计算。</li>
                     <li><strong>隐私保护特性增强</strong>：基于潜在扩散的生成器只依赖全局模型参数，不泄露任何客户端原始数据或梯度信息，可抵御常见成员推理攻击。</li>
                     <li><strong>SOTA性能提升</strong>：在CIFAR-10/100、Fashion-MNIST等多个基准上，面对极端Non-IID划分(α=0.1)，FedPDR相较FedAvg、FedProx及SCAFFOLD平均提升≥5.2%的准确率，同时通信轮次减少约30%。</li>
                     <li><strong>轻量化开销</strong>：生成模型仅部署于服务器端，对客户端透明高效，适用于移动边缘计算场景。</li>
                 </ul>
                 <span class="detail-label">🔗 论文信息链接 (Paper Links):</span>
-                <p style="margin-top: 5px; font-size:0.9rem;">
+                <p class="paper-note">
                     该工作已被 <strong>IEEE IWQoS 2026 (CCF推荐B类会议)</strong> 正式接收。点击下方PDF按钮可直达全文阅读页面。
                 </p>
             </div>
@@ -444,7 +134,7 @@
                 <span><i class="fas fa-book"></i> IEEE Internet of Things Journal (IoTJ)</span> |
                 <span><i class="fas fa-chart-line"></i> 中科院一区</span>
             </div>
-            <p style="color: #bbb; font-size: 0.95rem; margin-bottom: 10px;">
+            <p class="paper-authors">
                 Authors: Chen Li, <b>Xiaowei Liu</b>, Yuxin Wang
             </p>
             
@@ -454,7 +144,7 @@
                     研究了在计算资源受限的边缘设备上部署深度神经网络的挑战。提出了一种动态剪枝与量化结合的算法。
                 </p>
                 <span class="detail-label">主要工作 (Main Contributions):</span>
-                <ul style="list-style-type: disc; padding-left: 20px; color: #ccc;">
+                <ul class="detail-list">
                     <li>开发了自适应比特率量化策略。</li>
                     <li>实现了在 Raspberry Pi 上的实时推理加速，速度提升 2.5 倍。</li>
                 </ul>
@@ -516,7 +206,7 @@
                     <p class="project-desc">
                         一个基于 Python 构建的高效分布式联邦学习仿真框架。支持多种聚合算法（FedAvg, FedProx）和异构设备模拟。
                     </p>
-                    <a href="#" style="color:var(--accent-color); font-size:0.9rem;">查看详情 <i class="fas fa-arrow-right"></i></a>
+                    <a href="#" class="text-link">查看详情 <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 
@@ -527,7 +217,7 @@
                     <p class="project-desc">
                         基于计算机视觉的智能交通流量监控系统。能够实时检测车辆、统计流量并检测违规行为。
                     </p>
-                    <a href="#" style="color:var(--accent-color); font-size:0.9rem;">查看详情 <i class="fas fa-arrow-right"></i></a>
+                    <a href="#" class="text-link">查看详情 <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 
@@ -538,7 +228,7 @@
                     <p class="project-desc">
                         利用 LLM 辅助阅读论文的 Web 工具，支持 PDF 解析、摘要生成和关键问题问答。
                     </p>
-                    <a href="#" style="color:var(--accent-color); font-size:0.9rem;">查看详情 <i class="fas fa-arrow-right"></i></a>
+                    <a href="#" class="text-link">查看详情 <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 
@@ -553,148 +243,28 @@
                 <div class="contact-icon"><i class="fas fa-university"></i></div>
                 <h4>学校邮箱</h4>
                 <p>2020201513@hrbeu.edu.cn</p>
-                <a href="mailto:2020201513@hrbeu.edu.cn" class="btn" style="margin-top:15px; display:inline-block; border-width:1px; font-size:0.8rem;">发送邮件</a>
+                <a href="mailto:2020201513@hrbeu.edu.cn" class="btn contact-button">发送邮件</a>
             </div>
             <div class="contact-card">
                 <div class="contact-icon"><i class="fab fa-qq"></i></div>
                 <h4>QQ / 个人邮箱</h4>
                 <p>1821986277@qq.com</p>
-                <a href="mailto:1821986277@qq.com" class="btn" style="margin-top:15px; display:inline-block; border-width:1px; font-size:0.8rem;">发送邮件</a>
+                <a href="mailto:1821986277@qq.com" class="btn contact-button">发送邮件</a>
             </div>
             <div class="contact-card">
                 <div class="contact-icon"><i class="fab fa-github"></i></div>
                 <h4>GitHub</h4>
                 <p>@nononeundertsand</p>
-                <a href="https://github.com/nononeundertsand" target="_blank" class="btn" style="margin-top:15px; display:inline-block; border-width:1px; font-size:0.8rem;">访问主页</a>
+                <a href="https://github.com/nononeundertsand" target="_blank" class="btn contact-button">访问主页</a>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2025 Xiaowei Liu. Built with <i class="fas fa-code" style="color:var(--accent-color)"></i> & <i class="fas fa-coffee" style="color:var(--accent-color)"></i></p>
+        <p>&copy; 2025 Xiaowei Liu. Built with <i class="fas fa-code accent-text"></i> & <i class="fas fa-coffee accent-text"></i></p>
     </footer>
 
     <!-- 脚本区域: 打字机 + Canvas 粒子连线特效，以及PDF链接确保可跳转 -->
-    <script>
-        // 1. 打字机特效
-        const textElement = document.getElementById('typewriter-text');
-        const texts = [
-            "Researching in AI & Distributed Systems...", 
-            "Coding with Passion & Logic...", 
-            "Exploring the Future of Technology..."
-        ];
-        let count = 0;
-        let index = 0;
-        let currentText = "";
-        let letter = "";
-
-        (function type() {
-            if (count === texts.length) count = 0;
-            currentText = texts[count];
-            letter = currentText.slice(0, ++index);
-            textElement.textContent = letter;
-            if (letter.length === currentText.length) {
-                count++;
-                index = 0;
-                setTimeout(type, 2000);
-            } else {
-                setTimeout(type, 80);
-            }
-        })();
-
-        // 2. 星光粒子 + 鼠标连线特效 (Canvas)
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        
-        let width, height;
-        let particles = [];
-        
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.size = Math.random() * 2;
-                this.color = `rgba(170, 170, 170, ${Math.random() * 0.5 + 0.2})`;
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            particles = [];
-            const particleCount = Math.min(300, Math.floor(width * height / 15000));
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-        }
-        initParticles();
-
-        let mouse = { x: null, y: null };
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        });
-        window.addEventListener('mouseout', () => {
-            mouse.x = null;
-            mouse.y = null;
-        });
-
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-
-                if (mouse.x != null) {
-                    let dx = mouse.x - p.x;
-                    let dy = mouse.y - p.y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 150) {
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(0, 173, 181, ${1 - distance / 150})`;
-                        ctx.lineWidth = 1;
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(mouse.x, mouse.y);
-                        ctx.stroke();
-                    }
-                }
-            });
-            requestAnimationFrame(animate);
-        }
-        animate();
-        
-        // 确保PDF链接实际跳转（这里已经使用了正确的target _blank，如果需要替换可修改下方具体URL）
-        // 增加额外说明：用户可以根据需要修改 #paper1-pdf-link 的 href 为真实 IWQoS 2026 论文PDF地址。
-        // 当前提供的链接为示意性 arXiv 页面，但符合跳转PDF阅读界面的需求。
-        const pdfLink = document.getElementById('paper1-pdf-link');
-        if (pdfLink) {
-            // 您可以自由替换为官方PDF地址，例如: https://iwqos2026.ieee.org/proceedings/fedpdr.pdf
-            // 当前已经跳转至arXiv版本便于演示，点击即可阅览全文。
-            // 如果需要更直接的PDF文件，请将以下这行注释去掉，替换为绝对直链。
-            // pdfLink.href = "https://example.com/papers/FedPDR_IWQoS2026.pdf";
-        }
-    </script>
+    <script src="assets/js/main.js" defer></script>
 </body>
 </html>
