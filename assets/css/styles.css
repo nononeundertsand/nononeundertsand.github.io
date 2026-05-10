@@ -62,6 +62,189 @@ ul { list-style: none; }
 }
 .blog-hero { height: 55vh; }
 
+/* --- Blog light reading theme --- */
+.blog-page {
+    --blog-bg: #f7f8fb;
+    --blog-surface: #ffffff;
+    --blog-surface-soft: #eef4f7;
+    --blog-text: #1f2933;
+    --blog-muted: #64748b;
+    --blog-border: #dbe4ea;
+    --blog-accent: #0f766e;
+    --blog-accent-soft: #e6f4f1;
+    background: var(--blog-bg);
+    color: var(--blog-text);
+}
+
+.blog-page nav {
+    background: rgba(255, 255, 255, 0.92);
+    border-bottom: 1px solid var(--blog-border);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.blog-page .logo {
+    color: var(--blog-accent);
+}
+
+.blog-page .nav-links a {
+    color: var(--blog-text);
+}
+
+.blog-page .nav-links a:hover {
+    color: var(--blog-accent);
+}
+
+.blog-page .nav-links a::after {
+    background-color: var(--blog-accent);
+}
+
+.blog-shell {
+    width: min(1120px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 120px 0 64px;
+}
+
+.blog-header {
+    padding: 56px 0 36px;
+    border-bottom: 1px solid var(--blog-border);
+}
+
+.blog-kicker {
+    color: var(--blog-accent);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.blog-header h1 {
+    color: var(--blog-text);
+    font-size: 3rem;
+    line-height: 1.15;
+    margin-bottom: 18px;
+}
+
+.blog-header p {
+    max-width: 760px;
+    color: var(--blog-muted);
+    font-size: 1.08rem;
+}
+
+.blog-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: 32px;
+    padding: 40px 0;
+}
+
+.post-list {
+    display: grid;
+    gap: 18px;
+}
+
+.post-card,
+.sidebar-block {
+    background: var(--blog-surface);
+    border: 1px solid var(--blog-border);
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+}
+
+.post-card {
+    padding: 28px;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+    border-color: #9ccfc8;
+    box-shadow: 0 16px 36px rgba(15, 118, 110, 0.1);
+    transform: translateY(-2px);
+}
+
+.post-meta {
+    color: var(--blog-accent);
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.post-card h2 {
+    color: var(--blog-text);
+    font-size: 1.45rem;
+    line-height: 1.35;
+    margin-bottom: 10px;
+}
+
+.post-card p,
+.sidebar-block p {
+    color: var(--blog-muted);
+}
+
+.post-link,
+.back-home,
+.sidebar-block a {
+    color: var(--blog-accent);
+    font-weight: 700;
+}
+
+.post-link {
+    display: inline-block;
+    margin-top: 18px;
+    font-size: 0.92rem;
+}
+
+.blog-sidebar {
+    display: grid;
+    align-content: start;
+    gap: 18px;
+}
+
+.sidebar-block {
+    padding: 22px;
+}
+
+.sidebar-block h2 {
+    color: var(--blog-text);
+    font-size: 1rem;
+    margin-bottom: 14px;
+}
+
+.sidebar-block a {
+    display: block;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--blog-border);
+    font-size: 0.94rem;
+}
+
+.sidebar-block a:last-child {
+    border-bottom: 0;
+}
+
+.sidebar-block code {
+    background: var(--blog-accent-soft);
+    color: var(--blog-accent);
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 0.88em;
+}
+
+.blog-back {
+    padding: 0 0 24px;
+}
+
+.back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.blog-footer {
+    background: var(--blog-surface);
+    border-top: 1px solid var(--blog-border);
+    color: var(--blog-muted);
+}
+
         /* --- 导航栏 --- */
         nav {
             position: fixed;
@@ -335,4 +518,23 @@ ul { list-style: none; }
             .timeline::after { left: 20px; }
             .timeline-item { padding-left: 50px; padding-right: 10px; }
             .timeline-item::after { left: 12px; }
+            .blog-shell {
+                width: min(100% - 28px, 1120px);
+                padding-top: 92px;
+            }
+            .blog-header {
+                padding: 36px 0 28px;
+            }
+            .blog-header h1 {
+                font-size: 2.2rem;
+            }
+            .blog-layout {
+                grid-template-columns: 1fr;
+                gap: 22px;
+                padding-top: 28px;
+            }
+            .post-card,
+            .sidebar-block {
+                padding: 22px;
+            }
         }

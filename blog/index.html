@@ -7,47 +7,89 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
-<body>
-    <canvas id="bg-canvas"></canvas>
+<body class="blog-page">
 
     <nav>
         <div class="logo">&lt;Xiaowei Liu /&gt;</div>
         <div class="nav-links">
-            <a href="../index.html#home">Home</a>
-            <a href="../index.html#about">About</a>
-            <a href="../index.html#publications">Publications</a>
-            <a href="../index.html#projects">Projects</a>
-            <a href="../index.html#contact">Contact</a>
+            <a href="../index.html#home">主页</a>
+            <a href="../index.html#about">关于我</a>
+            <a href="../index.html#publications">论文</a>
+            <a href="../index.html#projects">项目</a>
+            <a href="../index.html#contact">联系</a>
         </div>
     </nav>
 
-    <section class="hero blog-hero">
-        <h1>Blog</h1>
-        <p>Research notes, engineering logs, and learning records.</p>
-    </section>
+    <main class="blog-shell">
+        <section class="blog-header">
+            <p class="blog-kicker">Daily Notes</p>
+            <h1>日常记录与知识总结</h1>
+            <p>
+                这里会整理我的论文阅读、工程实践、学习笔记和一些阶段性思考。
+                页面采用明亮、克制的阅读风格，方便长时间浏览。
+            </p>
+        </section>
 
-    <section>
-        <h2 class="section-title">Recent Posts</h2>
-        <div class="project-grid">
-            <article class="project-card">
-                <div class="project-content">
-                    <h3 class="project-title">Coming Soon</h3>
-                    <div class="tech-stack">Blog / Notes</div>
-                    <p class="project-desc">
-                        后续可以在这里展示论文阅读、项目复盘、科研笔记和开发记录。
+        <section class="blog-layout">
+            <div class="post-list" aria-label="文章列表">
+                <article class="post-card">
+                    <div class="post-meta">置顶 · 规划</div>
+                    <h2>我的知识库会如何组织</h2>
+                    <p>
+                        后续可以按“科研笔记、论文阅读、项目开发、工具效率、生活记录”来维护，
+                        每一类都可以独立扩展成文章列表。
                     </p>
-                    <a href="../index.html" class="text-link">
-                        Back Home <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <a href="#" class="post-link">即将更新 <i class="fas fa-arrow-right"></i></a>
+                </article>
+
+                <article class="post-card">
+                    <div class="post-meta">Research · Paper Reading</div>
+                    <h2>论文阅读笔记</h2>
+                    <p>
+                        记录论文核心问题、方法脉络、实验结论，以及可以复用到自己研究中的启发。
+                    </p>
+                    <a href="#" class="post-link">查看分类 <i class="fas fa-arrow-right"></i></a>
+                </article>
+
+                <article class="post-card">
+                    <div class="post-meta">Engineering · Development</div>
+                    <h2>项目开发日志</h2>
+                    <p>
+                        记录个人项目搭建、踩坑复盘、工具链配置，以及从想法到实现的过程。
+                    </p>
+                    <a href="#" class="post-link">查看分类 <i class="fas fa-arrow-right"></i></a>
+                </article>
+            </div>
+
+            <aside class="blog-sidebar" aria-label="博客分类">
+                <div class="sidebar-block">
+                    <h2>分类</h2>
+                    <a href="#">科研笔记</a>
+                    <a href="#">论文阅读</a>
+                    <a href="#">工程实践</a>
+                    <a href="#">学习总结</a>
+                    <a href="#">生活记录</a>
                 </div>
-            </article>
-        </div>
-    </section>
 
-    <footer>
-        <p>&copy; 2026 Xiaowei Liu. Built with <i class="fas fa-code accent-text"></i></p>
+                <div class="sidebar-block">
+                    <h2>维护建议</h2>
+                    <p>
+                        后续可以把文章数据放进 <code>assets/data/posts.json</code>，
+                        再用 JavaScript 自动渲染列表。
+                    </p>
+                </div>
+            </aside>
+        </section>
+
+        <section class="blog-back">
+            <a href="../index.html" class="back-home">
+                <i class="fas fa-arrow-left"></i> 返回个人主页
+            </a>
+        </section>
+    </main>
+
+    <footer class="blog-footer">
+        <p>&copy; 2026 Xiaowei Liu. Blog and notes.</p>
     </footer>
-
-    <script src="../assets/js/main.js" defer></script>
 </body>
 </html>
