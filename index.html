@@ -6,7 +6,7 @@
     <title>Xiaowei Liu | AI Researcher</title>
     <!-- 引入 FontAwesome 图标库 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/styles.css?v=20260510-blog-light">
+    <link rel="stylesheet" href="assets/css/styles.css?v=20260909-blog-discovery">
 </head>
 <body>
 
@@ -22,7 +22,7 @@
             <a href="#publications">发表论文</a>
             <a href="#experience">实习经历</a>
             <a href="#projects">项目经历</a>
-            <a href="blog/index.html">Blog界面</a>
+            <a href="blog/index.html" class="nav-blog-link"><i class="fas fa-pen-nib"></i> 博客与笔记</a>
             <a href="#contact">联系方式</a>
         </div>
     </nav>
@@ -39,6 +39,31 @@
             </a>
             <a href="#contact" class="btn">
                 <i class="fas fa-envelope"></i> 联系我
+            </a>
+            <a href="blog/index.html" class="btn btn-blog">
+                <i class="fas fa-book-open"></i> 阅读我的博客
+            </a>
+        </div>
+    </section>
+
+    <!-- 博客入口：紧跟首页首屏，帮助访客快速发现内容 -->
+    <section id="blog-preview" class="blog-preview">
+        <div class="blog-preview-copy">
+            <p class="blog-preview-kicker"><i class="fas fa-pen-nib"></i> Knowledge Garden</p>
+            <h2>不止项目与论文，也记录思考的过程</h2>
+            <p>围绕联邦学习、边缘智能、LLM 与工程实践的阅读笔记、实验复盘和工具方法论。</p>
+            <a href="blog/index.html" class="btn blog-preview-button">进入博客与知识笔记 <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="blog-preview-posts" aria-label="最新博客主题">
+            <a href="blog/index.html#fedpdr-note" class="blog-preview-post">
+                <span>RESEARCH NOTE</span>
+                <strong>联邦学习为什么会进入性能平台期？</strong>
+                <small>从通信收益与参数分布理解 FedPDR</small>
+            </a>
+            <a href="blog/index.html#rag-evaluation" class="blog-preview-post">
+                <span>ENGINEERING</span>
+                <strong>RAG 系统评测的三个最小闭环</strong>
+                <small>检索、生成与端到端体验</small>
             </a>
         </div>
     </section>
@@ -70,50 +95,49 @@
         </div>
     </section>
 
-    <!-- 发表论文 (根据要求更新第一篇: IWQoS 2026 CCF-B, 添加PDF链接) -->
+    <!-- 发表论文 -->
     <section id="publications">
         <h2 class="section-title">发表论文 (Publications)</h2>
         
-        <!-- 论文 1 - FedPDR 最新版 IWQoS 2026 (CCF-B) 添加PDF跳转 -->
+        <!-- 论文 1 - FedPDR -->
         <div class="paper-item">
             <div class="paper-title">
-                FedPDR: Leveraging Latent Diffusion Models for Post-Training Optimization in Federated Learning
-                <span class="conference-badge"><i class="fas fa-award"></i> CCF-B · IWQoS 2026</span>
+                FedPDR: Server-Side Post-Plateau Refinement for Federated Learning with Latent Diffusion
+                <span class="conference-badge"><i class="fas fa-book-open"></i> IEEE Xplore</span>
             </div>
             <div class="paper-meta">
                 <span><i class="far fa-calendar-alt"></i> 2026</span> | 
-                <span><i class="fas fa-globe"></i> IEEE/ACM International Symposium on Quality of Service (IWQoS)</span> |
-                <span><i class="fas fa-tag"></i>  CCF推荐B类会议</span>
+                <span><i class="fas fa-globe"></i> Federated Learning · Edge Intelligence · Generative AI</span>
             </div>
             <p class="paper-authors">
-                Authors: <b>Xiaowei Liu</b>, Hui Wang, Huan Zhou, zhenyu zhang, Peng Sun, Qi Gao, Tingting Wu, Zhiwen Yu.
+                Authors: <b>Xiaowei Liu</b>, Hui Wang, Huan Zhou, Zhenyu Zhang, Peng Sun, Qi Gao, Tingting Wu, Zhiwen Yu.
             </p>
             
-            <!-- 摘要与贡献（更详细的介绍） -->
+            <!-- 摘要与贡献 -->
             <div class="paper-details">
                 <span class="detail-label">📖 摘要 (Abstract):</span>
                 <p>
-                    联邦学习在保护数据隐私方面展现出巨大潜力，但Non-IID（非独立同分布）数据分布往往导致全局模型收敛缓慢、性能严重下降。现有方法通常需要共享部分原始数据或修改本地训练流程，存在隐私泄露风险或通信开销过高的问题。本文创新性地提出了FedPDR框架，首次将潜在扩散模型（Latent Diffusion Models, LDM）引入后训练优化环节。仅利用云端共享的全局模型生成多样化、高保真的潜在特征，在完全不接触原始用户数据的前提下对全局模型进行校准与增强。该方法既维护了严格的差分隐私预算，又可灵活集成到任意联邦聚合协议中，显著提升模型在异质数据上的泛化能力。
+                    联邦学习中的 Non-IID 数据会造成客户端参数分歧，而模型进入性能平台期后，持续的客户端训练与同步往往只能带来有限增益。FedPDR 提出两阶段的服务器端优化框架：通过自适应平台期检测识别训练收益递减的时刻，随后将优化任务迁移至服务器。该方法使用潜在扩散模型学习高性能全局模型参数的隐式分布，并离线生成经细化的全局参数，无需额外的客户端参与，从而同时改善异构数据下的收敛表现与边缘设备开销。
                 </p>
                 <span class="detail-label">✨ 主要工作与创新点 (Main Contributions):</span>
                 <ul class="detail-list">
-                    <li><strong>新颖的后训练优化范式</strong>：区别于传统联邦训练过程中的数据增强策略，FedPDR在聚合后采用扩散生成模型对全局模型进行蒸馏式优化，无需用户端额外计算。</li>
-                    <li><strong>隐私保护特性增强</strong>：基于潜在扩散的生成器只依赖全局模型参数，不泄露任何客户端原始数据或梯度信息，可抵御常见成员推理攻击。</li>
-                    <li><strong>SOTA性能提升</strong>：在CIFAR-10、Fashion-MNIST、HAR等多个基准上，面对极端Non-IID划分，FedPDR相较FedAvg、FedProx及SCAFFOLD平均提升≥5.2%的准确率，同时通信轮次减少约30%。</li>
-                    <li><strong>轻量化开销</strong>：生成模型仅部署于服务器端，对客户端透明高效，适用于移动边缘计算场景。</li>
-                    <li><strong>真实场景实验</strong>：在使用树莓派与NVIDIA Jetson Nano等设备搭建的联邦学习训练系统上进行了实验验证。</li>
+                    <li><strong>自适应平台期检测（APD）</strong>：跟踪训练轨迹并区分有效更新与噪声更新，在性能平台期开始时触发服务器端任务卸载。</li>
+                    <li><strong>潜在扩散式参数细化</strong>：将平台期的全局模型参数建模为高维分布，利用潜在扩散模型生成更优参数，突破线性聚合的限制。</li>
+                    <li><strong>客户端零额外参与</strong>：平台期后停止冗余的客户端计算和通信，将生成式优化留在资源充足的服务器端完成。</li>
+                    <li><strong>多场景评估</strong>：在多个基准数据集、联邦学习框架及真实部署环境中验证方法；论文报告平均降低 63% 的客户端计算与通信开销，并带来 4.7% 的全局准确率提升。</li>
                 </ul>
                 <span class="detail-label">🔗 论文信息链接 (Paper Links):</span>
                 <p class="paper-note">
-                    该工作已被 <strong>IEEE IWQoS 2026 (CCF推荐B类会议)</strong> 正式接收。点击下方PDF按钮可直达全文阅读页面。
+                    正式出版信息和摘要请参阅 IEEE Xplore；本站同时保留可公开访问的论文 PDF。
                 </p>
             </div>
 
             <div class="paper-links">
-                <!-- PDF链接指向实际的在线PDF地址（示例使用可靠的arXiv/主办方链接，为了演示，这里设置为指向真实PDF占位，但可替换为你的目标PDF链接） 
-                     根据你的需求，点击直接转换到论文的pdf阅读界面。 此处采用一个模拟的可靠PDF链接，实际使用时替换为IWQoS官方提供的地址或上传的PDF地址 -->
-                <a href="papers/FedPDR.pdf" target="_blank" id="paper1-pdf-link">
-                    <i class="fas fa-file-pdf"></i> 阅读全文 (PDF)
+                <a href="https://ieeexplore.ieee.org/abstract/document/11661282" target="_blank" rel="noopener noreferrer" id="paper1-ieee-link">
+                    <i class="fas fa-external-link-alt"></i> IEEE Xplore
+                </a>
+                <a href="papers/FedPDR.pdf" target="_blank" rel="noopener noreferrer" id="paper1-pdf-link">
+                    <i class="fas fa-file-pdf"></i> 论文 PDF
                 </a>
                 <a href="https://github.com/nononeundertsand/CFD" target="_blank">
                     <i class="fab fa-github"></i> 项目代码 (Official)

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog | Xiaowei Liu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/styles.css?v=20260510-blog-light">
+    <link rel="stylesheet" href="../assets/css/styles.css?v=20260909-blog-discovery">
 </head>
 <body class="blog-page">
 
@@ -22,60 +22,88 @@
 
     <main class="blog-shell">
         <section class="blog-header">
-            <p class="blog-kicker">Daily Notes</p>
-            <h1>日常记录与知识总结</h1>
+            <p class="blog-kicker">Research · Engineering · Learning</p>
+            <h1>博客与知识笔记</h1>
             <p>
-                这里会整理我的论文阅读、工程实践、学习笔记和一些阶段性思考。
-                页面采用明亮、克制的阅读风格，方便长时间浏览。
+                这里沉淀论文阅读、工程实践与学习过程中的可复用方法。
+                每篇笔记尽量回答一个具体问题，并留下可继续验证的方向。
             </p>
+            <div class="blog-topic-pills" aria-label="博客主题">
+                <a href="#research-notes">联邦学习</a>
+                <a href="#engineering-notes">LLM / RAG</a>
+                <a href="#engineering-notes">边缘智能</a>
+                <a href="#learning-notes">学习方法</a>
+            </div>
         </section>
 
         <section class="blog-layout">
             <div class="post-list" aria-label="文章列表">
-                <article class="post-card">
-                    <div class="post-meta">置顶 · 规划</div>
-                    <h2>我的知识库会如何组织</h2>
+                <article class="post-card featured-post" id="fedpdr-note">
+                    <div class="post-meta">置顶 · Research Note · 2026</div>
+                    <h2>联邦学习为什么会进入性能平台期？</h2>
                     <p>
-                        后续可以按“科研笔记、论文阅读、项目开发、工具效率、生活记录”来维护，
-                        每一类都可以独立扩展成文章列表。
+                        当全局模型已接近当前数据分布下的可达性能时，客户端更新的边际收益会下降，
+                        但本地训练与通信成本并不会消失。一个实用的判断方式是：同时观察验证集增益、
+                        更新方向的一致性与设备侧预算；若收益持续低于阈值，就应考虑停止同步训练并切换优化策略。
                     </p>
-                    <a href="#" class="post-link">即将更新 <i class="fas fa-arrow-right"></i></a>
+                    <div class="post-takeaways">
+                        <span>01 先定义“收益递减”</span>
+                        <span>02 区分噪声与有效更新</span>
+                        <span>03 将后期优化迁移到服务器</span>
+                    </div>
+                    <a href="../index.html#publications" class="post-link">查看 FedPDR 论文 <i class="fas fa-arrow-right"></i></a>
                 </article>
 
-                <article class="post-card">
-                    <div class="post-meta">Research · Paper Reading</div>
-                    <h2>论文阅读笔记</h2>
+                <article class="post-card" id="research-notes">
+                    <div class="post-meta">Research · Reading Method</div>
+                    <h2>读一篇系统论文时，我会追问的 5 个问题</h2>
                     <p>
-                        记录论文核心问题、方法脉络、实验结论，以及可以复用到自己研究中的启发。
+                        它解决的瓶颈是否真实存在？指标是否与瓶颈对应？假设会在哪些环境失效？
+                        对比基线是否公平？最后，方法中有哪些模块可以迁移到自己的问题。把问题写在摘要旁，
+                        比只收藏论文更容易形成自己的研究判断。
                     </p>
-                    <a href="#" class="post-link">查看分类 <i class="fas fa-arrow-right"></i></a>
+                    <a href="#learning-notes" class="post-link">查看阅读框架 <i class="fas fa-arrow-right"></i></a>
                 </article>
 
-                <article class="post-card">
-                    <div class="post-meta">Engineering · Development</div>
-                    <h2>项目开发日志</h2>
+                <article class="post-card" id="rag-evaluation">
+                    <div class="post-meta">Engineering · RAG</div>
+                    <h2>RAG 系统评测的三个最小闭环</h2>
                     <p>
-                        记录个人项目搭建、踩坑复盘、工具链配置，以及从想法到实现的过程。
+                        第一层看检索：正确证据是否进入候选集；第二层看生成：答案是否忠实于证据；
+                        第三层看端到端体验：延迟、引用可读性与失败时的兜底是否可接受。将三层指标分开记录，
+                        才能定位“回答不好”究竟来自数据、检索还是模型。
                     </p>
-                    <a href="#" class="post-link">查看分类 <i class="fas fa-arrow-right"></i></a>
+                    <a href="#engineering-notes" class="post-link">查看工程笔记 <i class="fas fa-arrow-right"></i></a>
+                </article>
+
+                <article class="post-card" id="engineering-notes">
+                    <div class="post-meta">Engineering · Edge AI</div>
+                    <h2>边缘设备上的模型优化：先测量，再压缩</h2>
+                    <p>在资源受限设备上，“模型更小”不一定等于“体验更好”。开始优化前，应测量端到端延迟、峰值内存、能耗与准确率；随后选择量化、剪枝、批处理或通信压缩。每次只改变一个变量，才能知道真正带来收益的环节。</p>
+                    <a href="../index.html#projects" class="post-link">查看相关项目 <i class="fas fa-arrow-right"></i></a>
+                </article>
+
+                <article class="post-card" id="learning-notes">
+                    <div class="post-meta">Learning · Workflow</div>
+                    <h2>把知识笔记写成可执行的实验清单</h2>
+                    <p>一篇有用的技术笔记不只复述概念：它应该明确输入、预期输出、验证条件与下一步问题。比如在尝试新方法前，先写下“要改善哪个指标、使用什么基线、失败时如何解释”。这种小而完整的闭环，让阅读自然转化为实验行动。</p>
+                    <a href="#fedpdr-note" class="post-link">返回置顶笔记 <i class="fas fa-arrow-up"></i></a>
                 </article>
             </div>
 
             <aside class="blog-sidebar" aria-label="博客分类">
                 <div class="sidebar-block">
                     <h2>分类</h2>
-                    <a href="#">科研笔记</a>
-                    <a href="#">论文阅读</a>
-                    <a href="#">工程实践</a>
-                    <a href="#">学习总结</a>
-                    <a href="#">生活记录</a>
+                    <a href="#research-notes">科研笔记 <span>02</span></a>
+                    <a href="#fedpdr-note">联邦学习 <span>01</span></a>
+                    <a href="#engineering-notes">工程实践 <span>02</span></a>
+                    <a href="#learning-notes">学习总结 <span>01</span></a>
                 </div>
 
                 <div class="sidebar-block">
-                    <h2>维护建议</h2>
+                    <h2>阅读方式</h2>
                     <p>
-                        后续可以把文章数据放进 <code>assets/data/posts.json</code>，
-                        再用 JavaScript 自动渲染列表。
+                        从置顶研究笔记开始，或按分类浏览。每篇文章均可作为后续实验、代码与论文阅读的索引。
                     </p>
                 </div>
             </aside>
